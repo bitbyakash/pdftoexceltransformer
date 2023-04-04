@@ -11,17 +11,16 @@ from xlsxwriter import Workbook
 
 st.set_page_config(page_title="Cyberakash's PDF to Excel", page_icon=":robot_face:", layout="wide") 
 
-#@st.cache_data
-#def gh():
-#    proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,"wb"), stderr=STDOUT, executable="/bin/bash")
-#    proc.wait()
-#gh()
+@st.cache_data
+def gh():
+    proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,"wb"), stderr=STDOUT, executable="/bin/bash")
+    proc.wait()
+gh()
 
 # Use local CSS
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
 
 local_css("style/style.css")
 
@@ -60,9 +59,6 @@ if input_pdf is not None:
     
     table = cam.read_pdf("input.pdf", pages=page_number, flavor='lattice')
 
-    #st.markdown("### Number of Tables")
-    #st.write(table)
-
     if len(table) > 0:
         # select table to convert to Excel
         with st.container():
@@ -78,7 +74,6 @@ if input_pdf is not None:
         st.markdown('### Table Preview')
 
         # display the selected table without index column and row
-        #st.write(output_table)
         st.table(output_table.style.hide_index()) 
         
         # Convert df into Excel, CSV
