@@ -11,6 +11,13 @@ from xlsxwriter import Workbook
 
 st.set_page_config(page_title="Cyberakash's PDF to Excel", page_icon=":robot_face:", layout="wide") 
 
+#subprocess.run(["choco", "upgrade", "all"])
+#subprocess.run(["choco", "install", "ghostscript"])
+
+
+#subprocess.run(["apt-get", "update"])
+#subprocess.run(["apt-get", "install", "-y", "ghostscript"])
+
 @st.cache_data
 def gh():
     proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,"wb"), stderr=STDOUT, executable="/bin/bash")
@@ -58,6 +65,8 @@ if input_pdf is not None:
         f.write(base64.b64decode(base64_pdf))
     
     table = cam.read_pdf("input.pdf", pages=page_number, flavor='lattice')
+
+    st.write(table)
 
     if len(table) > 0:
         # select table to convert to Excel
