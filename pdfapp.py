@@ -18,7 +18,7 @@ st.set_page_config(page_title="Cyberakash's PDF to Excel", page_icon=":robot_fac
 #subprocess.run(["apt-get", "update"])
 #subprocess.run(["apt-get", "install", "-y", "ghostscript"])
 
-#@st.cache_data
+@st.cache_data
 def gh():
     proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,"wb"), stderr=STDOUT, executable="/bin/bash")
     proc.wait()
@@ -64,7 +64,7 @@ if input_pdf is not None:
         base64_pdf = base64.b64encode(input_pdf.read()).decode('utf-8')
         f.write(base64.b64decode(base64_pdf))
     
-    table = cam.read_pdf("input.pdf", pages=page_number, flavor='lattice')
+    table = cam.read_pdf("input.pdf", pages=page_number, flavor='stream')
 
     st.write(table)
 
